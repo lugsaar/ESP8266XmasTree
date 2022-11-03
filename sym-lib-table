@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "BMP280_Breakoutboard")(type "KiCad")(uri "${KIPRJMOD}/Libraries/BMP280_Breakoutboard.kicad_sym")(options "")(descr ""))
+)

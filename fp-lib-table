@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "BMP280_Breakoutboard")(type "KiCad")(uri "${KIPRJMOD}/Libraries/BMP280_Breakoutboard.pretty")(options "")(descr ""))
+)
