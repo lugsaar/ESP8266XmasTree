@@ -15,7 +15,7 @@ FASTLED_USING_NAMESPACE
 #define LED_TYPE            WS2812B
 #define COLOR_ORDER         GRB
 
-#define BRIGHTNESS          32
+#define BRIGHTNESS          48
 
 CRGB leds[NUM_LEDS];
 
@@ -125,6 +125,7 @@ void loop() {
 if (globalinputMessage == "1"){
 EVERY_N_MILLISECONDS( 20) {
     pacifica_loop();
+    FastLED.setBrightness(BRIGHTNESS );
     FastLED.show();
 }
 
@@ -132,6 +133,7 @@ EVERY_N_MILLISECONDS( 20) {
 
 else if (globalinputMessage == "2") {
     pride();
-  FastLED.show(); 
+    FastLED.setBrightness(BRIGHTNESS );
+    FastLED.show(); 
 } 
 }
