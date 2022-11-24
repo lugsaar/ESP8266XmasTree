@@ -116,6 +116,7 @@ void setup() {
 
   server.onNotFound(notFound);
   server.begin();
+  globalinputMessage = 2;
 
   }
 
