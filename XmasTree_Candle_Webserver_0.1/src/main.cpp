@@ -3,32 +3,25 @@
 // 2022-11-20
 // ----------------------------------------
 
+#include <SoftwareSerial.h>
+#include <ESP8266WiFi.h>
+#include <ESPAsyncWebServer.h>
 
-// LED setup parameters
-#define FASTLED_ALLOW_INTERRUPTS 0
-#include <FastLED.h>
-FASTLED_USING_NAMESPACE
 
-#define DATA_PIN            2
-#define NUM_LEDS            15
-#define MAX_POWER_MILLIAMPS 500
-#define LED_TYPE            WS2812B
-#define COLOR_ORDER         GRB
-
-#define BRIGHTNESS          48
+#include "custom_params.hpp"
+#include "pacifica.hpp"
+#include "pride.hpp"
 
 CRGB leds[NUM_LEDS];
 
 
+
 // wifi and webserver setup parameters
-#include <ESP8266WiFi.h>
-#include "ESPAsyncWebServer.h"
 const char* PARAM_INPUT_1 = "input1";
 String globalinputMessage = "empty";  // Website input String
-#define LED_BUILTIN 2   // Set the GPIO pin where you connected your test LED or comment this line out if your dev board has a built-in LED
 
 // Set these to your desired credentials.
-const char *ssid = "Xmastree";
+const char *ssid = "Xmastree2";
 //const char *password = "12345678";
 
 // Create AsyncWebServer object on port 80
@@ -55,13 +48,10 @@ void notFound(AsyncWebServerRequest *request) {
   request->send(404, "text/plain", "Not found");
 }
 
-//void pacifica_loop();
-
-
 
 // system setup
 void setup() {
- // pinMode(LED_BUILTIN, OUTPUT);
+  // pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(ledPin, OUTPUT);
   //digitalWrite(ledPin, LOW);
 
@@ -75,17 +65,25 @@ void setup() {
   Serial.println();
   Serial.println("Configuring access point...");
 
-  //WiFi.softAP(ssid, password);
+
+
+  // WiFi.softAP(ssid, password);
   WiFi.softAP(ssid); //open AP
   IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: "); Serial.println(myIP);
+  Serial.print("AP IP address: "); 
+  Serial.println(myIP);
 
   
   // start the Webserver
   Serial.println("starting webserver");
+
+
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html", index_html);
   });
+
+  
+
 
   // Send a GET request to <ESP_IP>/get?input1=<inputMessage>
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
@@ -99,7 +97,7 @@ void setup() {
       inputParam = PARAM_INPUT_1;
       globalinputMessage = inputMessage; //gebe weiter an globale Variable
     }
-    
+
   
     else {
       inputMessage = "No message sent";
@@ -112,29 +110,34 @@ void setup() {
     
     }
 
+
   );
 
   server.onNotFound(notFound);
   server.begin();
-  globalinputMessage = 2;
+  globalinputMessage = "2";
 
-  }
+}
 
 // run Xmas tree
-  
-void loop() {
-if (globalinputMessage == "1"){
-EVERY_N_MILLISECONDS( 20) {
-    pacifica_loop();
-    FastLED.setBrightness(BRIGHTNESS );
-    FastLED.show();
-}
 
-}
+  void loop()
+  {
 
-else if (globalinputMessage == "2") {
-    pride();
-    FastLED.setBrightness(BRIGHTNESS );
-    FastLED.show(); 
-} 
+    if (globalinputMessage == "1")
+    {
+      EVERY_N_MILLISECONDS(20)
+      {
+        pacifica_loop();
+        FastLED.setBrightness(BRIGHTNESS);
+        FastLED.show();
+      }
+    }
+    else if (globalinputMessage == "2")
+    {
+      pride();
+      FastLED.setBrightness(BRIGHTNESS);
+      FastLED.show();
+    }
+
 }

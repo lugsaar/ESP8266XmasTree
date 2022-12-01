@@ -1,4 +1,7 @@
-#include "FastLED.h"
+
+#include "custom_params.hpp"
+
+
 
 // Pride2015
 // Animated, ever-changing rainbows.
