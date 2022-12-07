@@ -14,9 +14,9 @@ ESP8266 based PCB Xmas tree with WS2812B LEDs as Christmas lights. The Christmas
 <br>
 
 
-<p align="center">
+<div align="center">
   <video  src="https://user-images.githubusercontent.com/16343380/206121300-22d0379d-260c-4d33-9b2b-982ff7118add.mp4" width"480"/>
-</p>
+</div>
 
 
 ## Layout
